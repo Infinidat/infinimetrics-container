@@ -1,0 +1,61 @@
+version: '3.4'
+
+x-imx-image: &imx-image
+  image: ${INFINIMETRICS_IMAGE:-}
+
+services:
+  nginx:
+    extends:
+      file: common.yaml
+      service: nginx
+    depends_on:
+      web:
+        condition: service_healthy
+  postgres:
+    extends:
+      file: common.yaml
+      service: postgres
+  clickhouse:
+    extends:
+      file: common.yaml
+      service: clickhouse
+    image: ${CLICKHOUSE_IMAGE:-}
+  collect_stats:
+    <<: *imx-image
+    extends:
+      file: common.yaml
+      service: collect_stats
+    depends_on:
+      postgres:
+        condition: service_healthy
+      clickhouse:
+        condition: service_healthy
+  cron:
+    <<: *imx-image
+    extends:
+      file: common.yaml
+      service: cron
+    depends_on:
+      postgres:
+        condition: service_healthy
+      clickhouse:
+        condition: service_healthy
+  web:
+    <<: *imx-image
+    extends:
+      file: common.yaml
+      service: web
+    environment:
+      - COMPRESS_ENABLED=true
+      - COMPRESS_OFFLINE=true
+    command: gunicorn --config /app/gunicorn.conf.py infinimetrics.wsgi:application
+    depends_on:
+      postgres:
+        condition: service_healthy
+      clickhouse:
+        condition: service_healthy
+      collect_stats:
+        condition: service_healthy
+
+volumes:
+  infinimetrics-static:
