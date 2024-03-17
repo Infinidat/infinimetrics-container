@@ -1,0 +1,5 @@
+ARG POSTGRES_IMAGE
+FROM $POSTGRES_IMAGE
+
+# The following locale should be supported to allow migrations from previous IMX versions
+RUN localedef -i en_US -c -f LATIN1 -A /usr/share/locale/locale.alias en_US
