@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -eE
 
 DEFAULT_DATA_DIR="./data"
 DEFAULT_POSTGRES_DIR="./data/postgres"
@@ -57,15 +58,11 @@ else
     # Data directory configuration
     read -p "Data directory path [default: $DEFAULT_DATA_DIR] "  DATA_USER_DIR
     DATA_USER_DIR=${DATA_USER_DIR:-$DEFAULT_DATA_DIR}
-    if [ -d "$DATA_USER_DIR" ]; then
-        echo "WARNING: directory $DATA_USER_DIR already exists."
-    else
-        mkdir -p -m $PERMS "$DATA_USER_DIR"
-        mkdir -p -m $PERMS "$DATA_USER_DIR/appdata"
-        mkdir -p -m $PERMS "$DATA_USER_DIR/private"
-        mkdir -p -m $PERMS "$DATA_USER_DIR/processes"
-        mkdir -p -m $PERMS "$DATA_USER_DIR/tmp"
-    fi
+    mkdir -p -m $PERMS "$DATA_USER_DIR"
+    mkdir -p -m $PERMS "$DATA_USER_DIR/appdata"
+    mkdir -p -m $PERMS "$DATA_USER_DIR/private"
+    mkdir -p -m $PERMS "$DATA_USER_DIR/processes"
+    mkdir -p -m $PERMS "$DATA_USER_DIR/tmp"
     echo "DATA_DIR=$DATA_USER_DIR"  >> .env.tmp
 
     # Logs directory
@@ -73,11 +70,10 @@ else
     LOGS_USER_DIR=${LOGS_USER_DIR:-$DEFAULT_LOGS_DIR}
     if [ -d "$LOGS_USER_DIR" ]; then
         echo "WARNING: directory $DEFAULT_LOGS_DIR already exists."
-    else
-        mkdir -p -m $PERMS "$LOGS_USER_DIR"
-        mkdir -p -m $PERMS "$LOGS_USER_DIR/collect_stats"
-        mkdir -p -m $PERMS "$LOGS_USER_DIR/cron"
     fi
+    mkdir -p -m $PERMS "$LOGS_USER_DIR"
+    mkdir -p -m $PERMS "$LOGS_USER_DIR/collect_stats"
+    mkdir -p -m $PERMS "$LOGS_USER_DIR/cron"
     echo "LOGS_DIR=$LOGS_USER_DIR"  >> .env.tmp
 
     # Clickhouse configuration
@@ -85,9 +81,8 @@ else
     CLICKHOUSE_USER_DIR=${CLICKHOUSE_USER_DIR:-$DEFAULT_CLICKHOUSE_DIR}
     if [ -d "$CLICKHOUSE_USER_DIR" ]; then
         echo "WARNING: directory $CLICKHOUSE_USER_DIR already exists."
-    else
-        mkdir -p -m $PERMS "$CLICKHOUSE_USER_DIR"
     fi
+    mkdir -p -m $PERMS "$CLICKHOUSE_USER_DIR"
     echo "CLICKHOUSE_DIR=$CLICKHOUSE_USER_DIR"  >> .env.tmp
 
     # Postgres configuration
@@ -95,9 +90,8 @@ else
     POSTGRES_USER_DIR=${POSTGRES_USER_DIR:-$DEFAULT_POSTGRES_DIR}
     if [ -d "$POSTGRES_USER_DIR" ]; then
         echo "WARNING: directory $POSTGRES_USER_DIR already exists."
-    else
-        mkdir -p -m $PERMS "$POSTGRES_USER_DIR"
     fi
+    mkdir -p -m $PERMS "$POSTGRES_USER_DIR"
     echo "POSTGRES_DIR=$POSTGRES_USER_DIR"  >> .env.tmp
 
     # Database credentials

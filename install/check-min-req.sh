@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+set -eE
+
 echo "INFO: Checking minimum requirements ..."
 
 MIN_DOCKER_VERSION='20.10.18'
