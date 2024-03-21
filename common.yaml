@@ -177,9 +177,6 @@ services:
     <<: [*web-vols, *common-env, *dot-env] 
     entrypoint: "/app/entrypoint.sh"
     init: true 
-    # to enable interactive shell within docker
-    stdin_open: true
-    tty: true
     healthcheck:
       test: curl --fail http://localhost:8000 || exit 1
       timeout: 30s
