@@ -94,7 +94,7 @@ After an installation of self-hosted InfiniMetrics, it is possible to upload a c
 docker compose restart nginx
 ```
 
-### Logs collection
+### Log collection
 
 Logs collection is available both from UI and CLI.
 
