@@ -65,6 +65,9 @@ x-cron-vols: &cron-vols
       source: ${CLICKHOUSE_DIR:-./data/clickhouse}
       target: /app/clickhouse-data
       read_only: true
+    - type: bind
+      source: ./docker/crontab
+      target: /etc/cron.d/infinimetrics
 
 x-dot-env: &dot-env
   env_file:
