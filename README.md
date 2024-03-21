@@ -72,12 +72,17 @@ To run InfiniMetrics commands from containers, run:
 
 **Restore**
 
-First, the backup tar.gz file should be placed into data/tmp directory (in case the default data directory is different, look at the DATA_DIR variable inside .env.user). The following command will restore the file into InfiniMetrics, assuming that the name of the backup file is <backup.tar.gz>:
+1. First, the backup tar.gz file should be placed into data/tmp directory (in case the default data directory is different, look at the DATA_DIR variable inside .env.user). The following command will restore the file into InfiniMetrics, assuming that the name of the backup file is <backup.tar.gz>:
 ```
 ./infinimetrics.sh restore /tmp/infinimetrics/<backup.tar.gz>
 ```
 
 Note: the path to the restore file must start with /tmp/infinimetrics so it can be found inside the container.
+
+2. Finally, restart the web container:
+```
+docker compose restart web
+```
 
 ### Installing a custom SSL certificate
 
@@ -85,9 +90,9 @@ After an installation of self-hosted InfiniMetrics, it is possible to upload a c
 
 1. Upload the certificate pem file from the InfiniMetrics UI
 2. Restart the nginx container:
-    ```
-    docker compose restart nginx
-    ```
+```
+docker compose restart nginx
+```
 
 ### Logs collection
 
