@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-exec docker compose exec -it web infinimetrics "$@"
+exec docker compose run --rm -i web infinimetrics "$@"
