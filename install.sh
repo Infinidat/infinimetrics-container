@@ -26,14 +26,15 @@ catch_dc_errors() {
 $dc pull
 
 # turn everything off 
-echo "INFO: Installation is in progress, please don't interrupt the procedure..."
+echo "INFO: Stopping containers ..."
 $dc down --remove-orphans --rmi local --timeout 120
 
 trap 'catch_dc_errors' ERR
 
 # build local docker images
+echo "INFO: Building images ..."
 $dc build postgres
-echo "INFO: Docker images built."
+echo "INFO: Docker images built"
 
 if [ ! "$SKIP_INIT" == "1" ]; then
     echo "INFO: Starting web container to run database migrations..."
