@@ -137,7 +137,7 @@ services:
     volumes:
       - type: bind
         source: ${CLICKHOUSE_DIR:-./data/clickhouse}
-        target: /var/lib/clickhouse
+        target: /opt/clickhouse/
       - type: bind
         source: ./docker/clickhouse-config.xml
         target: /etc/clickhouse-server/config.xml
