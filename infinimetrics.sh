@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-dc="docker compose --env-file .env --env-file .env.user"
+dc="docker compose --env-file .env --env-file .env.user --progress quiet"
 
 if [ "$#" -lt 1 ] ; then
     $dc run -T web infinimetrics --help
