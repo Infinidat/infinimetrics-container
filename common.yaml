@@ -1,4 +1,4 @@
-# Healthcheck reference
+# Healthcheck reference:
 # https://github.com/peter-evans/docker-compose-healthcheck
 
 x-supervisor-vols: &supervisor-vols
@@ -66,7 +66,7 @@ x-cron-vols: &cron-vols
       target: /app/clickhouse-data
       read_only: true
     - type: bind
-      source: ./docker/crontab
+      source: ./docker/conf/crontab
       target: /etc/cron.d/infinimetrics
 
 x-dot-env: &dot-env
@@ -95,7 +95,7 @@ services:
         source: infinimetrics-static
         target: /app/collected_static
       - type: bind
-        source: ./docker/nginx.conf
+        source: ./docker/conf/nginx.conf
         target: /etc/nginx/conf.d/default.conf
       - type: bind
         source: ${DATA_DIR:-./data}/private/
@@ -139,10 +139,10 @@ services:
         source: ${CLICKHOUSE_DIR:-./data/clickhouse}
         target: /opt/clickhouse/
       - type: bind
-        source: ./docker/clickhouse-config.xml
+        source: ./docker/conf/clickhouse-config.xml
         target: /etc/clickhouse-server/config.xml
       - type: bind
-        source: ./docker/clickhouse-users.xml
+        source: ./docker/conf/clickhouse-users.xml
         target: /etc/clickhouse-server/users.xml
     <<: [*common-env, *dot-env]
     healthcheck:
