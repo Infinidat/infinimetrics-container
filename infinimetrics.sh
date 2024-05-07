@@ -4,8 +4,7 @@ set -e
 dc="docker compose --env-file .env --env-file .env.user --progress quiet"
 
 if [ "$#" -lt 1 ] ; then
-    $dc run -T web infinimetrics --help
-    echo "ERROR: Illegal number of parameters (requires at least 1)" >&2
+    $dc run --rm web infinimetrics
     exit 1
 fi
 
