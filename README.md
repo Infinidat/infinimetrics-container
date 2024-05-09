@@ -12,9 +12,9 @@ Bash |
 Container architecture | linux/x86_64
 
 ## Setup
-### Installation / Upgrade
+### Installation
 
-Clone the repository, check out to the correct version, and run:
+Clone the repository, check out the correct version, and run:
 
 ```
 ./install.sh
@@ -33,6 +33,12 @@ To start the containers automatically following successful install/upgrade, run:
 ```
 ./install.sh --start-containers
 ```
+
+### Upgrade 
+
+Pull the changes from this repository, checkout out the new version and run ./install.sh again.
+
+The remaining instructions are the same as in the installation above.
 
 ### Install.sh usage
 
