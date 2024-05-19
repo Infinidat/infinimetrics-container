@@ -1,5 +1,6 @@
 x-imx-image: &imx-image
   image: ${INFINIMETRICS_IMAGE:-}
+  platform: "linux/amd64"
 
 services:
   nginx:
