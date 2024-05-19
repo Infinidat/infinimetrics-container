@@ -17,9 +17,9 @@ if [[ "$cmd" == "restore" ]] && [[ ! "$nextarg" = "/tmp/infinimetrics/"* ]]  ; t
 fi
 
 if [[ "$cmd" == "add" ]] || [[ "$cmd" == "restore" ]] || [[ "$cmd" == "delete" ]] ; then
-    $dc run --rm web infinimetrics "$@"
-    echo "INFO: Reloading web container ..." >&2
-    $dc kill -s SIGHUP web
+    # Requires reloading gunicorn, so we must exec against a running service
+    exec $dc exec web infinimetrics "$@"
 else
+    # May be executed in a separate instance, doesn't require reloading gunicorn
     exec $dc run --rm web infinimetrics "$@"
 fi
