@@ -7,6 +7,8 @@ BASEDIR=$(dirname "$0")
 source "$BASEDIR"/install/cli.sh
 source "$BASEDIR"/install/check-min-req.sh
 source "$BASEDIR"/install/init-data.sh
+# Load the .env data
+source "$BASEDIR"/.env
 
 dc="docker compose --env-file .env --env-file $ENV_USER"
 
@@ -22,10 +24,28 @@ catch_dc_errors() {
     echo ""
 }
 
-# Pull newest image version
-$dc pull
+# Pull images from dotenv file
+echo "INFO: images in dotenv file"
+echo "CLICKHOUSE_IMAGE: $CLICKHOUSE_IMAGE"
+echo "POSTGRES_IMAGE: $POSTGRES_IMAGE"
+echo "NGINX_IMAGE: $NGINX_IMAGE"
+echo "INFINIMETRICS_IMAGE: $INFINIMETRICS_IMAGE"
+echo ""
 
-# turn everything off 
+declare -a images=("$CLICKHOUSE_IMAGE" "$POSTGRES_IMAGE" "$NGINX_IMAGE" "$INFINIMETRICS_IMAGE")
+
+for img in "${images[@]}"
+do
+  if [ -z "$(docker images -q $img 2> /dev/null)" ]; then
+    echo "INFO: Image $img is missing, pulling..."
+    docker image pull $img
+  else
+    echo "INFO: Image $img existing, skipping pulling."
+  fi
+done
+
+
+# turn everything off
 echo "INFO: Stopping containers ..."
 $dc down --remove-orphans --rmi local --timeout 120
 
@@ -61,4 +81,3 @@ else
     echo "=================================================================="
     echo ""
 fi
-
