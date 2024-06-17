@@ -89,7 +89,7 @@ Example: (assuming that the name of the backup file is <backup.tar.gz>)
 ./infinimetrics.sh restore /tmp/infinimetrics/<backup.tar.gz>
 ```
 
-**Note**: the path to the restore file must start with /tmp/infinimetrics so it can be found inside the container.
+**Note**: the path to the restore file must start with `/tmp/infinimetrics` so it can be found inside the container.
 
 
 ### Installing a custom SSL certificate
