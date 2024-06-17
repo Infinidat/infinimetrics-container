@@ -116,4 +116,4 @@ In addition to the log tar file the output of docker_logs.sh scripts should be p
 
     ./docker_logs.sh --since <date>
 
-While `<date>` is in the YYYY-MM-DD format. 
+Where `<date>` is in the YYYY-MM-DD format. 
