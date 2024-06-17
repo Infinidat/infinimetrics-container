@@ -1,4 +1,4 @@
-# Self-Hosted InfiniMetrics deployment
+# InfiniMetrics in Docker
 
 Compose file and installation script to deploy containerized InfiniMetrics in a self-managed environment.
 
@@ -14,7 +14,9 @@ Container architecture | linux/x86_64
 ## Setup
 ### Installation
 
-Clone the repository, check out the correct version, and run:
+Clone this repository, check out the correct git tag (e.g `git checkout <ver>`).
+
+Then run:
 
 ```
 ./install.sh
@@ -22,7 +24,7 @@ Clone the repository, check out the correct version, and run:
 
 You will be prompted to change the default installation parameters. Unless you are familiar with these configuration values, use the recommended ones.
 
-After a successful installation, a command to start the InfiniMetrics compose app will be printed: 
+Following a successful installation, a command to start the InfiniMetrics compose app will be printed: 
 
 ```
 docker compose --env-file .env --env-file .env.user up -d
@@ -36,21 +38,23 @@ To start the containers automatically following successful install/upgrade, run:
 
 ### Upgrade 
 
-Pull the changes from this repository, checkout out the new version and run ./install.sh again.
+Fetch the changes from this repository (`git fetch --tags`), 
 
-The remaining instructions are the same as in the installation above.
+Checkout the new version (e.g `git checkout <ver>`) and run `./install.sh` again.
+
+The remaining instructions to start the containers are the same as in the installation above.
 
 ### Install.sh usage
 
 ```
 Usage: ./install.sh [options]
 
-Install containerized InfiniMetrics in Self-Hosted environment.
+Install containerized InfiniMetrics in self-managed environment.
 
 Options:
  -h, --help           Show this message
  --noninteractive     Skip the interactive initialization prompt
- --start-containers   Start the containers automatically after install
+ --start-containers   Start the containers automatically following install
  --skip-init          Skip database initialization/migration (not recommended)
 ```
 
@@ -68,7 +72,7 @@ To run InfiniMetrics commands from containers, run:
 
     ./infinimetrics.sh [command]
 
-### Backup and restore in a self-hosted environment
+### Backup and restore commands in InfiniMetrics
 
 **Backup**
 
@@ -78,17 +82,19 @@ To run InfiniMetrics commands from containers, run:
 
 **Restore**
 
-The backup tar.gz file should be placed into data/tmp directory (in case the default data directory is different, look at the DATA_DIR variable inside .env.user). The following command will restore the file into InfiniMetrics, assuming that the name of the backup file is <backup.tar.gz>:
+The backup tar.gz file should be placed into data/tmp directory (in case the default data directory is different, look at the DATA_DIR variable inside .env.user). The following command will restore the file into InfiniMetrics. 
+
+Example: (assuming that the name of the backup file is <backup.tar.gz>)
 ```
 ./infinimetrics.sh restore /tmp/infinimetrics/<backup.tar.gz>
 ```
 
-Note: the path to the restore file must start with /tmp/infinimetrics so it can be found inside the container.
+**Note**: the path to the restore file must start with /tmp/infinimetrics so it can be found inside the container.
 
 
 ### Installing a custom SSL certificate
 
-After an installation of self-hosted InfiniMetrics, it is possible to upload a custom SSL certificate.
+Following an installation, it is possible to upload a custom SSL certificate.
 
 1. Upload the certificate pem file from the InfiniMetrics UI
 2. Restart the nginx container:
