@@ -14,7 +14,7 @@ Container architecture | linux/x86_64
 ## Setup
 ### Installation
 
-Clone this repository, check out the correct git tag (e.g `git checkout <ver>`).
+Clone this repository, and then check out the correct git tag (e.g `git checkout <ver>`).
 
 Then run:
 
@@ -60,9 +60,9 @@ Options:
 
 ### Custom .env.user file
 
-The .env.user is automatically created during the installation. You may change and customize and it will not be overridden between installations/upgrades.
+The .env.user is automatically created during the installation. You may change and customize it and it will not be overridden during installations/upgrades.
 
-Attention: only  `.env.user` file is preserved between upgrades, while `.env` file is overridden.
+Attention: only  `.env.user` file is preserved during upgrades, while `.env` file is overridden.
 
 ## Misc
 
@@ -104,15 +104,15 @@ docker compose restart nginx
 
 ### Log collection
 
-Logs collection is available both from UI and CLI.
+Log collection is available from both the UI and CLI.
 
-In case of downloading from the UI, the compressed log file will be downloaded from the browser.
+If you are downloading from the UI, the compressed log file will be downloaded from the browser.
 
-In case of collecting logs from CLI, the resulting file will be stored as compressed tar in data/tmp directory.
+If you are collecting logs from CLI, the resulting file will be stored as compressed tar in data/tmp directory.
 
     ./infinimetrics.sh collect-logs --since <date>
 
-In addition to the log tar file the output of docker_logs.sh scripts should be provided:
+In addition to the log tar file, the output of docker_logs.sh scripts should be provided:
 
     ./docker_logs.sh --since <date>
 
