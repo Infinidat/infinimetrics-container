@@ -16,7 +16,7 @@ if [[ "$cmd" == "restore" ]] && [[ ! "$nextarg" = "/tmp/infinimetrics/"* ]]  ; t
     exit 1
 fi
 
-if [[ "$cmd" == "add" ]] || [[ "$cmd" == "restore" ]] || [[ "$cmd" == "delete" ]] ; then
+if [[ "$cmd" == "add" || "$cmd" == "restore" || "$cmd" == "delete" || "$cmd" == "migrate_over_ssh" ]] ; then
     # Requires reloading gunicorn, so we must exec against a running service
     exec $dc exec web infinimetrics "$@"
 else
