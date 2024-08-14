@@ -117,3 +117,11 @@ In addition to the log tar file, the output of docker_logs.sh scripts should be 
     ./docker_logs.sh --since <date>
 
 Where `<date>` is in the YYYY-MM-DD format. 
+
+## Offline installation
+
+In case this compose suite is deployed in an environment without Internet access to the public DockerHub, first load the provided images by first executing:
+
+    ./image_load.sh
+
+Then proceed with `install.sh` instructions from above.

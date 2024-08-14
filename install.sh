@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 set -eE
+set -u
 
 INSTALLED_VERSION=""
+ENV_USER=".env.user"
 BASEDIR=$(dirname "$0")
 
 source "$BASEDIR"/install/cli.sh
 source "$BASEDIR"/install/check-min-req.sh
-source "$BASEDIR"/install/init-data.sh
+
 # Load the .env data
 source "$BASEDIR"/.env
 
@@ -44,6 +46,8 @@ do
   fi
 done
 
+echo "INFO: Initializing data directories ..."
+source "$BASEDIR"/install/init-data.sh
 
 # turn everything off
 echo "INFO: Stopping containers ..."
