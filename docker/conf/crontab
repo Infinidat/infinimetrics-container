@@ -38,5 +38,5 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin:/app
 # send entities to ramen in full once per day
 55 2 * * * root manage send_entities_to_ramen --all > /var/log/infinimetrics/cron/send_entities_to_ramen_all.log 2>&1
 
-# Notify about low disk space as we have in monit
+# Notify about low disk space
 0 */1 * * * root manage monitor_disk_space > /var/log/infinimetrics/cron/monitor_disk_space.log 2>&1
