@@ -5,6 +5,7 @@ echo "INFO: Checking minimum requirements ..."
 
 MIN_DOCKER_VERSION='20.10.18'
 MIN_COMPOSE_VERSION='2.17.0'
+IMX_DEBUG="${IMX_DEBUG:-0}"
 
 vercomp() {
     printf "%s\n%s" "$1" "$2" | sort --version-sort --check=quiet --reverse
@@ -24,7 +25,7 @@ fi
 echo "INFO: Docker version is $DOCKER_VERSION"
 
 DOCKER_ARCH=$(docker info --format '{{.Architecture}}')
-if [[ -z "$IMX_DEBUG" && ! "$DOCKER_ARCH" = "x86_64" ]]; then
+if [[ ! "$IMX_DEBUG" = "1" && ! "$DOCKER_ARCH" = "x86_64" ]]; then
     echo "FAIL: Supported docker architecture is x86_64 but found $DOCKER_ARCH"
     exit 1
 fi

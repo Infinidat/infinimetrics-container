@@ -39,6 +39,12 @@ services:
         condition: service_healthy
       clickhouse:
         condition: service_healthy
+    # For being able to read the real hostname 
+    volumes:
+    - type: bind
+      source: /etc/hostname
+      target: /app/data/realhostname
+      read_only: true
   web:
     <<: *imx-image
     extends:
@@ -55,6 +61,12 @@ services:
         condition: service_healthy
       collect_stats:
         condition: service_healthy
+    # For being able to read the real hostname 
+    volumes:
+    - type: bind
+      source: /etc/hostname
+      target: /app/data/realhostname
+      read_only: true
 
 volumes:
   infinimetrics-static:

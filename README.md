@@ -6,8 +6,8 @@ Compose file and installation script to deploy containerized InfiniMetrics in a 
 
 Name | Minimal requirement
 --- | --- |
-Docker | 20.10.18+	
-Docker Compose | 2.17.0+	
+Docker | 20.10.18	
+Docker Compose | 2.17.0
 Bash |
 Container architecture | linux/x86_64
 
@@ -89,7 +89,6 @@ Start InfiniMetrics manually after the upgrade:
 ```
 docker compose --env-file .env --env-file .env.user up -d
 ```
-
 ## Install.sh usage
 
 ```
@@ -166,3 +165,11 @@ In addition to the log tar file, also provide the output of docker_logs.sh scrip
     ./docker_logs.sh --since <date>
 
 Where `<date>` is in YYYY-MM-DD format. 
+
+## Offline installation
+
+In case this compose suite is deployed in an environment without Internet access to the public DockerHub, first load the provided images by first executing:
+
+    ./image_load.sh
+
+Then proceed with `install.sh` instructions from above.

@@ -106,6 +106,7 @@ services:
     <<: [*common-env, *dot-env]
   postgres:
     container_name: infinimetrics_postgres
+    command: -c config_file=/etc/postgresql.conf
     hostname: postgres
     restart: always
     build:
@@ -117,6 +118,9 @@ services:
       - type: bind
         source: ${POSTGRES_DIR:-./data/postgres}
         target: /var/lib/postgresql/data
+      - type: bind
+        source: ./docker/conf/postgresql.conf
+        target: /etc/postgresql.conf
     healthcheck:
       test: [
         "CMD-SHELL", 
