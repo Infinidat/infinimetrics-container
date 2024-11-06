@@ -11,41 +11,53 @@ Docker Compose | 2.17.0
 Bash |
 Container architecture | linux/x86_64
 
-## Installation
+## Install
 
-Clone the repository:
+### Prepare the installation files
+
+Clone the InfiniMetrics container repository from GitHub:
+
 ```
 git clone https://github.com/Infinidat/infinimetrics-container.git
 ```
 
 List the versions available:
+
 ```
 git tag
 ```
 
-Check out the version you want to install:
+Choose the version to install:
+
 ```
 git checkout <version, e.g. 7.0.0>
 ```
 
+### Install and start immediately
+
 Install InfiniMetrics and start the containers:
+
 ```
 ./install.sh --start-containers
 ```
 
 You are prompted to change the default installation parameters. Unless you are familiar with these parameters, use the recommended values.
 
-Following a successful installation, a command to start the InfiniMetrics compose app is printed.
+InfiniMetrics is set to start automatically with the Docker engine.
 
-InfiniMetrics is set to start automatically with the Docker engine. 
+### Install without starting
 
-### Manual Installation
-
-If you prefer, you can install InfiniMetrics and not have it start automatically:
+You can install InfiniMetrics and not have it start automatically:
 
 ```
 ./install.sh
 ```
+
+Following a successful installation, a command to start the InfiniMetrics compose app is printed.
+
+Copy the command, and run it manually.
+
+### Start manually
 
 Start InfiniMetrics manually:
 
@@ -53,7 +65,11 @@ Start InfiniMetrics manually:
 docker compose --env-file .env --env-file .env.user up -d
 ```
 
-## Upgrade 
+InfiniMetrics will restart automatically whenever the Docker engine restarts. 
+
+## Upgrade
+
+### Prepare the upgrade files 
 
 Fetch the changes from the repository:
 
@@ -62,33 +78,47 @@ git fetch --tags
 ```
 
 List the versions available:
+
 ```
 git tag
 ```
 
 Check out the version you want to upgrade to:
+
 ```
 git checkout <version, e.g. 7.0.0>
 ```
 
+### Upgrade and start immediately
+
 Stop the current containers, upgrade InfiniMetrics, and start the upgraded containers:
+
 ```
 ./install.sh --start-containers
 ```
 
-### Manual Upgrade
+### Upgrade without starting
 
-If you prefer, you can upgrade InfiniMetrics and not have it start automatically after the upgrade:
+You can upgrade InfiniMetrics and not have it start automatically after the upgrade:
 
 ```
 ./install.sh
 ```
+
+Following a successful upgrade, a command to start the InfiniMetrics compose app is printed.
+
+Copy the command, and run it manually.
+
+### Start manually
 
 Start InfiniMetrics manually after the upgrade:
 
 ```
 docker compose --env-file .env --env-file .env.user up -d
 ```
+
+InfiniMetrics will restart automatically whenever the Docker engine restarts.
+
 ## Install.sh usage
 
 ```
@@ -119,7 +149,7 @@ To run InfiniMetrics commands from containers:
 
 ### Backup and restore commands in InfiniMetrics
 
-You can back up and restore the data collected by InfiniMetrics in order to move them between deployments, or just to perform backup for the data collected by InfiniMetrics.
+You can back up and restore the data collected by InfiniMetrics in order to move them between deployments, or to perform backup for the data collected by InfiniMetrics.
 
 **Backup**
 
@@ -129,10 +159,10 @@ You can back up and restore the data collected by InfiniMetrics in order to move
 
 **Restore**
 
-Normally, the backup tar.gz file will be written to the data/tmp directory. If the default data directory is different, refer to the DATA_DIR variable inside .env.user.
-The following command will restore the file into InfiniMetrics.
+Normally, the backup tar.gz file is written to the data/tmp directory. If the default data directory is different, refer to the DATA_DIR variable inside .env.user. The following command will restore the file into InfiniMetrics.
 
 Example: (assuming that the name of the backup file is <backup.tar.gz>)
+
 ```
 ./infinimetrics.sh restore /tmp/infinimetrics/<backup.tar.gz>
 ```
@@ -140,12 +170,13 @@ Example: (assuming that the name of the backup file is <backup.tar.gz>)
 **Note**: The path to the restore file must start with `/tmp/infinimetrics` so that it can be found inside the container.
 
 
-### Installing a custom SSL certificate
+### Install a custom SSL certificate
 
 Following installation, you can upload a custom SSL certificate.
 
 1. Upload the certificate pem file from the InfiniMetrics UI.
 2. Restart the nginx container:
+
 ```
 docker compose restart nginx
 ```
@@ -168,8 +199,19 @@ Where `<date>` is in YYYY-MM-DD format.
 
 ## Offline installation
 
-In case this compose suite is deployed in an environment without Internet access to the public DockerHub, first load the provided images by first executing:
+You can deploy this compose suite in an environment without Internet access to the public DockerHub.
 
-    ./image_load.sh
+1. Using a machine that has internet access, download the relevant tarball file, infinimetrics_offline.tar.gz, on the GitHub Assets page at:
+https://github.com/Infinidat/infinimetrics-container/releases/
 
-Then proceed with `install.sh` instructions from above.
+2. Copy the package to the machine that will run InfiniMetrics.
+
+3. Extract the package on the local filesystem. Record the location (for example: /opt/infinimetrics). Future upgrades must be to the same location.
+
+4. Change the working directory to the location where the package was extracted.
+
+5. Load the images to the Docker Engine using the provided image_load.sh script:
+
+    ``` ./image_load.sh ```
+
+Continue with the install.sh instructions above.
