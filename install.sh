@@ -63,7 +63,7 @@ echo "INFO: Docker images built"
 if [ ! "$SKIP_INIT" == "1" ]; then
     echo "INFO: Starting web container to run database migrations..."
     set -x
-    $dc run --rm web infinimetrics setup
+    $dc run --rm web imx_setup
     INSTALLED_VERSION=$($dc run --rm web infinimetrics --version)
     set +x
 fi
