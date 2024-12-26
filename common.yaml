@@ -189,3 +189,11 @@ services:
       test: curl --fail http://localhost:8000 || exit 1
       timeout: 30s
       retries: 15
+  # container for auxilary commands, to not touch the web container
+  cmd:
+    profiles: ["cli"]
+    container_name: infinimetrics_cmd
+    <<: [*web-vols, *common-env, *dot-env]
+    environment:
+      CHECK_FIRST_BOOT: "0"
+    entrypoint: "/app/entrypoint.sh"
