@@ -194,6 +194,4 @@ services:
     profiles: ["cli"]
     container_name: infinimetrics_cmd
     <<: [*web-vols, *common-env, *dot-env]
-    environment:
-      CHECK_FIRST_BOOT: "0"
     entrypoint: "/app/entrypoint.sh"
