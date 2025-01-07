@@ -42,3 +42,8 @@ if [[ "$(vercomp ${COMPOSE_VERSION//v/} $MIN_COMPOSE_VERSION)" -eq 1 ]]; then
 fi
 echo "INFO: Found Docker Compose version $COMPOSE_VERSION"
 
+# IMX-1925 Docker compose 2.32.0 is not allowed in InfiniMetrics 
+if [[ "${COMPOSE_VERSION//v/}" == "2.32.0" || "${COMPOSE_VERSION//v/}" == "2.32.1" ]] ; then
+    echo "FAIL: Docker compose v${COMPOSE_VERSION//v/} is not supported"
+    exit 1
+fi
