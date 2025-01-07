@@ -7,7 +7,7 @@ Compose file and installation script to deploy containerized InfiniMetrics in a 
 Name | Minimal requirement
 --- | --- |
 Docker | 20.10.18	
-Docker Compose | 2.17.0
+Docker Compose | 2.17.0<br>Note: it is not recommended to use Docker Compose 2.32.x
 Bash |
 Container architecture | linux/x86_64
 
