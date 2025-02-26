@@ -138,6 +138,11 @@ services:
       nofile:
         soft: 262144
         hard: 262144
+    # https://github.com/ClickHouse/ClickHouse/issues/70960
+    # can't run docker logs on clickhouse (v24.8.4) container 
+    # due to: "get_mempolicy: Operation not permitted"
+    cap_add:
+      - CAP_SYS_NICE
     volumes:
       - type: bind
         source: ${CLICKHOUSE_DIR:-./data/clickhouse}
