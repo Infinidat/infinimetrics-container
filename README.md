@@ -21,6 +21,12 @@ Clone the InfiniMetrics container repository from GitHub:
 git clone https://github.com/Infinidat/infinimetrics-container.git
 ```
 
+Change directory to the infinimetrics-container:
+
+```
+cd infinimetrics-container
+```
+
 List the versions available:
 
 ```
