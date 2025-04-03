@@ -95,6 +95,20 @@
     <!-- Directory with user provided files that are accessible by 'file' table function. -->
     <user_files_path>/opt/clickhouse/user_files/</user_files_path>
 
+    <!-- This solves the following problem: 
+     Poco::Exception. Code: 1000, e.code() = 0, Not found: user_directories.users_xml.path (version 25.3.1.2703 (official build))
+      -->
+    <user_directories>
+        <users_xml>
+            <!-- Path to configuration file with predefined users. -->
+            <path>users.xml</path>
+        </users_xml>
+        <local_directory>
+            <!-- Path to folder where users created by SQL commands are stored. -->
+            <path>/var/lib/clickhouse/access/</path>
+        </local_directory>
+    </user_directories>
+
     <!-- Path to configuration file with users, access rights, profiles of settings, quotas. -->
     <users_config>users.xml</users_config>
 
