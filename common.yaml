@@ -38,6 +38,10 @@ x-web-vols: &web-vols
     - type: bind
       source: ${LOGS_DIR:-./data/logs}/cron
       target: /var/log/infinimetrics/cron
+    # Generic logs (for example for imx_setup.log)
+    - type: bind
+      source: ${LOGS_DIR:-./data/logs}/generic
+      target: /var/log/infinimetrics/generic
     # For calculating data usage of each partition
     - type: bind
       source: ${POSTGRES_DIR:-./data/postgres}
