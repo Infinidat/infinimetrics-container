@@ -33,6 +33,7 @@ if [ "$NONINTERACTIVE" == "1" ] &&  [ ! -f "$ENV_USER" ]; then
     mkdir -p -m $PERMS "$DEFAULT_LOGS_DIR"
     mkdir -p -m $PERMS "$DEFAULT_LOGS_DIR/collect_stats"
     mkdir -p -m $PERMS "$DEFAULT_LOGS_DIR/cron"
+    mkdir -p -m $PERMS "$DEFAULT_LOGS_DIR/generic"
 
     mkdir -p -m $PERMS "$DEFAULT_POSTGRES_DIR"
     mkdir -p -m $PERMS "$DEFAULT_CLICKHOUSE_DIR"
