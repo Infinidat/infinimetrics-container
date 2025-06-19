@@ -23,22 +23,24 @@ if [ "$NONINTERACTIVE" == "1" ] &&  [ ! -f "$ENV_USER" ]; then
     echo "POSTGRES_DIR=$DEFAULT_POSTGRES_DIR" >> $ENV_USER
     echo "POSTGRES_USER=$DEFAULT_INFINIMETRICS_USER"  >> $ENV_USER
     echo "POSTGRES_PASSWORD=$DEFAULT_INFINIMETRICS_PASSWORD"  >> $ENV_USER
-
-    mkdir -p -m $PERMS "$DEFAULT_DATA_DIR"
-    mkdir -p -m $PERMS "$DEFAULT_DATA_DIR/appdata"
-    mkdir -p -m $PERMS "$DEFAULT_DATA_DIR/private"
-    mkdir -p -m $PERMS "$DEFAULT_DATA_DIR/processes"
-    mkdir -p -m $PERMS "$DEFAULT_DATA_DIR/tmp"
-
-    mkdir -p -m $PERMS "$DEFAULT_LOGS_DIR"
-    mkdir -p -m $PERMS "$DEFAULT_LOGS_DIR/collect_stats"
-    mkdir -p -m $PERMS "$DEFAULT_LOGS_DIR/cron"
-    mkdir -p -m $PERMS "$DEFAULT_LOGS_DIR/generic"
-
-    mkdir -p -m $PERMS "$DEFAULT_POSTGRES_DIR"
-    mkdir -p -m $PERMS "$DEFAULT_CLICKHOUSE_DIR"
 fi
-    
+
+# Create necessary directories
+mkdir -p -m $PERMS "$DEFAULT_DATA_DIR"
+mkdir -p -m $PERMS "$DEFAULT_DATA_DIR/appdata"
+mkdir -p -m $PERMS "$DEFAULT_DATA_DIR/private"
+mkdir -p -m $PERMS "$DEFAULT_DATA_DIR/processes"
+mkdir -p -m $PERMS "$DEFAULT_DATA_DIR/tmp"
+
+mkdir -p -m $PERMS "$DEFAULT_LOGS_DIR"
+mkdir -p -m $PERMS "$DEFAULT_LOGS_DIR/collect_stats"
+mkdir -p -m $PERMS "$DEFAULT_LOGS_DIR/cron"
+mkdir -p -m $PERMS "$DEFAULT_LOGS_DIR/generic"
+
+mkdir -p -m $PERMS "$DEFAULT_POSTGRES_DIR"
+mkdir -p -m $PERMS "$DEFAULT_CLICKHOUSE_DIR"
+
+
 if [ -f "$ENV_USER" ]; then
     source $ENV_USER
     echo "INFO: Proceeding with existing custom $ENV_USER ..."
