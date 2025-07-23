@@ -39,26 +39,66 @@ if [ -z "$SINCE" ]; then
     exit 1
 fi
 
-echo "Starting collecting logs since $SINCE"
+LOGS_FILE="./data/logs/docker_logs_$SINCE.log"
 
-echo "=========================================="
+collect_command(){
+  echo "Collecting $1"
+  echo "--------------" >> "$LOGS_FILE"
+  echo "Collecting $1" >> "$LOGS_FILE"
+  echo "--------------" >> "$LOGS_FILE"
+  $1 >> "$LOGS_FILE" 2>&1
+}
 
-echo "Docker process output:"
+collect_command_and_print(){
+  echo "$1"
+  echo "$1" >> "$LOGS_FILE" 2>&1
+}
 
-docker compose ps
+echo "" > "$LOGS_FILE"
 
-echo "=========================================="
+collect_command_and_print "=========================================="
 
-echo "Supervisor status:"
+collect_command_and_print "Starting collecting logs since $SINCE"
 
-docker compose exec collect_stats supervisorctl status
+collect_command_and_print "=========================================="
 
-echo "=========================================="
+collect_command_and_print "Collecting general docker information"
 
-echo "Docker logs output:"
+collect_command "docker info"
+collect_command "docker version"
+collect_command "docker compose version "
+collect_command "docker system df"
+collect_command "docker network ls"
+collect_command "docker inspect host"
+collect_command "docker inspect bridge"
+collect_command "systemctl status docker"
+collect_command "docker container ls"
+collect_command "docker ps -a"
+collect_command "docker inspect infinimetrics_web"
+collect_command "docker inspect infinimetrics_clickhouse"
+collect_command "docker inspect infinimetrics_postgres"
+collect_command "docker inspect infinimetrics_nginx"
+collect_command "docker inspect infinimetrics_cron"
+collect_command "docker inspect infinimetrics_collect_stats"
 
-docker compose logs --since "$SINCE"
+collect_command_and_print "=========================================="
 
-echo "=========================================="
+collect_command_and_print "Collecting Docker process output..."
 
-echo "Logs collection ended."
+collect_command "docker compose ps"
+
+collect_command_and_print "=========================================="
+
+collect_command_and_print "Collecting supervisor status..."
+
+collect_command "docker compose exec collect_stats supervisorctl status"
+
+collect_command_and_print "=========================================="
+
+collect_command_and_print "Collecting Docker logs since $SINCE"
+
+collect_command "docker compose logs --since $SINCE"
+
+collect_command_and_print "=========================================="
+
+collect_command_and_print "Logs collection were succesfully saved into $LOGS_FILE"
