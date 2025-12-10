@@ -49,6 +49,9 @@ done
 echo "INFO: Initializing data directories ..."
 source "$BASEDIR"/install/init-data.sh
 
+echo "INFO: Fixing permissions ..."
+chmod 755 -R $BASEDIR
+
 # turn everything off
 echo "INFO: Stopping containers ..."
 $dc down --remove-orphans --rmi local --timeout 120
