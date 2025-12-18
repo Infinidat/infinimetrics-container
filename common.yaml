@@ -84,6 +84,9 @@ x-common-env: &common-env
     POSTGRES_HOST: postgres
     POSTGRES_DB: infinimetrics
     POSTGRES_PORT: 5432
+    # When using custom proxy settings, bypass requests to the following hostnames 
+    NO_PROXY: "localhost,127.0.0.1,infinimetrics_clickhouse,clickhouse"
+    no_proxy: "localhost,127.0.0.1,infinimetrics_clickhouse,clickhouse"
 
 services:
   nginx:

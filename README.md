@@ -201,7 +201,7 @@ In addition to the log tar file, also provide the output of docker_logs.sh scrip
 
     ./docker_logs.sh --since <date>
 
-Where `<date>` is in YYYY-MM-DD format. 
+Where `<date>` is in YYYY-MM-DD format. The contents of the logs will be saved into `./data/logs/docker_logs_<date>.log`
 
 ## Offline installation
 

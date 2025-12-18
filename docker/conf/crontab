@@ -14,7 +14,10 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin:/app
 # collect_top runs hourly
 0 * * * * root manage collect_top > /var/log/infinimetrics/cron/collect_top.log 2>&1
 
-# hearbeat should run before winnow, otherwise it might not find the data it's looking for
+# Send analytics event
+15 1 * * * root manage analytics > /var/log/infinimetrics/cron/analytics.log 2>&1
+
+# heartbeat should run before winnow, otherwise it might not find the data it's looking for
 45 1 * * * root manage heartbeat > /var/log/infinimetrics/cron/heartbeat.log 2>&1
 
 # winnow runs on the 1st of each month
